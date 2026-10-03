@@ -20,6 +20,7 @@
 <link rel="preload" as="image" href="img/libro.webp">
 <style>
 :root{
+  --foil-deep:linear-gradient(100deg,#5e450d 0%,#8f6d1b 22%,#c9a03a 42%,#7a5a14 60%,#a8821f 80%,#5e450d 100%);
   --bg:#06130a;
   --bg-2:#0a1f10;
   --moss:#036107;
@@ -46,7 +47,7 @@ a{color:inherit}
 
 /* ---------- utilidades ---------- */
 .foil{background:var(--foil);background-size:260% 100%;background-position:0% 50%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
-.is-live .foil.shine,.gate .foil.shine{animation:foilMove 7s ease-in-out infinite alternate}
+.is-live .foil.shine,.gate .foil.shine,.loader .foil.shine{animation:foilMove 7s ease-in-out infinite alternate}
 @keyframes foilMove{to{background-position:100% 50%}}
 .eyebrow{font-family:var(--f-cap);font-weight:600;font-size:13px;letter-spacing:.34em;text-transform:uppercase;color:var(--gold-soft)}
 .rule{display:block;width:120px;height:1px;margin:18px auto;background:linear-gradient(90deg,transparent,var(--gold),transparent);position:relative;overflow:hidden}
@@ -83,13 +84,14 @@ a{color:inherit}
 .cover-back{transform:rotateY(180deg);background:linear-gradient(90deg,#0d2210,#17331a 40%,#0f2612);box-shadow:inset -10px 0 30px rgba(0,0,0,.6)}
 .cover-text{position:absolute;left:12%;right:6%;top:36%;text-align:center}
 .cover-text .ct-eb{font-family:var(--f-cap);font-weight:700;font-size:clamp(10px,2.9vw,13px);letter-spacing:.32em;color:var(--gold-soft)}
-.cover-text .ct-name{font-family:var(--f-script);font-size:clamp(44px,13vw,64px);line-height:1.15;margin-top:4px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.6))}
+.cover-text .ct-name{font-family:var(--f-script);font-size:clamp(44px,13vw,64px);line-height:1.2;padding:.2em .15em .04em;margin-top:-.16em;filter:drop-shadow(0 2px 6px rgba(0,0,0,.6))}
 .cover-text .rule{width:64px;margin:6px auto}
-.tap{position:absolute;left:50%;bottom:17%;transform:translateX(-46%);padding:10px 22px 9px;border-radius:999px;border:1px solid rgba(212,175,55,.75);background:rgba(4,12,6,.78);text-align:center;white-space:nowrap;box-shadow:0 0 0 0 rgba(212,175,55,.5);animation:tapPulse 2.4s ease-out infinite}
+.tap{position:absolute;left:50%;bottom:17%;padding:10px 22px 9px;border-radius:999px;border:1px solid rgba(212,175,55,.75);background:rgba(4,12,6,.78);text-align:center;white-space:nowrap;box-shadow:0 0 0 0 rgba(212,175,55,.5);animation:tapPulse 2.4s ease-out infinite}
 .tap b{display:block;font-family:var(--f-cap);font-weight:700;font-size:14px;letter-spacing:.14em;color:var(--gold-soft)}
 .tap i{display:block;font-family:var(--f-body);font-weight:600;font-size:14px;color:var(--champ);letter-spacing:.06em}
 @keyframes tapPulse{0%{box-shadow:0 0 0 0 rgba(212,175,55,.45)}80%,100%{box-shadow:0 0 0 18px rgba(212,175,55,0)}}
-.key{position:absolute;left:-9%;bottom:4%;width:23%;transform-origin:50% 4%;z-index:3;pointer-events:none;animation:keySwing 3.6s ease-in-out infinite}
+.key{position:absolute;left:-9%;bottom:4%;width:23%;transform-origin:50% 4%;z-index:3;pointer-events:none}
+.key.swing{animation:keySwing 3.6s ease-in-out infinite}
 .key img{width:100%;filter:drop-shadow(0 8px 10px rgba(0,0,0,.6))}
 @keyframes keySwing{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(6deg)}}
 .tag{position:absolute;left:-26%;top:80%;width:160%;transform:rotate(-14deg);background:#fbf6ea;border-radius:10px;padding:14px 10px 12px;text-align:center;box-shadow:0 10px 24px rgba(0,0,0,.55);color:var(--ink)}
@@ -98,6 +100,38 @@ a{color:inherit}
 .tag span{display:block;font-family:var(--f-body);font-weight:700;font-size:15px;line-height:1.2;margin-top:2px}
 .gate-foot{font-family:var(--f-body);font-style:italic;font-weight:600;font-size:16px;color:rgba(247,231,206,.78);text-align:center;margin-top:64px}
 .flash{position:fixed;inset:0;z-index:55;pointer-events:none;opacity:0;background:radial-gradient(circle at 50% 50%,#fff8dc 0%,rgba(244,214,130,.9) 30%,rgba(3,97,7,0) 75%)}
+
+/* ---------- LOADER ---------- */
+.loader{position:fixed;inset:0;z-index:58;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;background:radial-gradient(50% 38% at 50% 46%,rgba(3,97,7,.24),transparent 70%),#010402}
+.ld-mono{position:relative;width:172px;height:172px}
+.ld-mono svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.ld-track{fill:none;stroke:rgba(212,175,55,.16);stroke-width:1}
+.ld-prog{fill:none;stroke:url(#ldg);stroke-width:1.7;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;transform:rotate(-90deg);transform-origin:50% 50%}
+.ld-dots{fill:none;stroke:rgba(212,175,55,.5);stroke-width:1.2;stroke-dasharray:.6 5;stroke-linecap:round;transform-origin:50% 50%;animation:orbit 30s linear infinite}
+.ld-mono b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--f-deco);font-weight:700;font-size:48px;padding-top:4px}
+.ld-txt{font-family:var(--f-body);font-style:italic;font-weight:600;font-size:18px;color:rgba(247,231,206,.86)}
+.ld-pct{font-family:var(--f-cap);font-weight:700;font-size:12px;letter-spacing:.32em;color:var(--gold);margin-top:-12px}
+/* ---------- cinemática de la portada ---------- */
+.beam,.mist,.book-shadow{position:absolute;pointer-events:none;opacity:0}
+.beam{left:50%;top:-6%;width:1000px;height:100%;margin-left:-500px}
+.beam i{position:absolute;inset:0;background:conic-gradient(from 180deg at 50% 0%,transparent 158deg,rgba(236,214,140,.07) 167deg,rgba(255,240,190,.22) 180deg,rgba(236,214,140,.07) 193deg,transparent 202deg);-webkit-mask-image:linear-gradient(#000 25%,transparent 90%);mask-image:linear-gradient(#000 25%,transparent 90%);animation:beamBreath 7s ease-in-out infinite}
+@keyframes beamBreath{50%{opacity:.55}}
+.mist{left:-40%;right:-40%;bottom:-8%;height:36%}
+.mist i{position:absolute;inset:0;background:radial-gradient(45% 50% at 30% 62%,rgba(177,221,139,.11),transparent 70%),radial-gradient(40% 45% at 70% 52%,rgba(247,231,206,.08),transparent 70%);animation:mistDrift 22s ease-in-out infinite alternate}
+.mist.m2{bottom:-14%;height:30%}
+.mist.m2 i{animation-duration:30s;animation-direction:alternate-reverse}
+@keyframes mistDrift{to{transform:translateX(14%)}}
+.book-lev{position:relative;transform-style:preserve-3d;animation:lev 6s ease-in-out infinite}
+@keyframes lev{50%{transform:translateY(-9px)}}
+.book-shadow{left:10%;right:4%;bottom:-30px;height:24px}
+.book-shadow i{position:absolute;inset:0;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.8),transparent);animation:shad 6s ease-in-out infinite}
+@keyframes shad{50%{transform:scaleX(.86);opacity:.65}}
+.pg-glow{position:absolute;inset:-45%;border-radius:50%;background:radial-gradient(closest-side,#fffbe8,rgba(255,228,150,.8) 34%,rgba(212,175,55,.28) 62%,transparent);opacity:0;pointer-events:none}
+.cover-front .shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.25),rgba(0,0,0,.88));opacity:0;pointer-events:none}
+.cover-glow{position:absolute;inset:0;background:radial-gradient(62% 46% at 56% 50%,rgba(255,226,140,.6),transparent 72%);mix-blend-mode:screen;opacity:0;pointer-events:none}
+.lock-ring{position:absolute;left:56%;top:50%;width:44px;height:44px;margin:-22px 0 0 -22px;border-radius:50%;border:2px solid #ffeaa8;box-shadow:0 0 18px #ffd96b,inset 0 0 12px #ffd96b;opacity:0;pointer-events:none}
+.lbox{position:fixed;left:0;right:0;height:11svh;background:#000;z-index:57;transform:scaleY(0);pointer-events:none}
+.lbox.t{top:0;transform-origin:50% 0}.lbox.b{bottom:0;transform-origin:50% 100%}
 
 /* ---------- secciones ---------- */
 main{position:relative;z-index:1}
@@ -117,7 +151,7 @@ section{position:relative;overflow:hidden;contain:layout paint}
 .hero-c{position:absolute;left:0;right:0;bottom:0;z-index:2;text-align:center;padding:0 16px calc(9svh + env(safe-area-inset-bottom))}
 .hero-c .eyebrow{color:var(--champ);text-shadow:0 2px 10px rgba(0,0,0,.8)}
 .hero-xv{font-family:var(--f-deco);font-size:clamp(22px,6.4vw,34px);letter-spacing:.06em;margin-top:10px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.7))}
-.hero-name{font-family:var(--f-script);font-size:clamp(78px,24vw,150px);line-height:1.08;padding:0 .12em;margin:-4px 0 0;
+.hero-name{font-family:var(--f-script);font-size:clamp(78px,24vw,150px);line-height:1.1;padding:.2em .14em .02em;margin:-.24em 0 0;
   -webkit-mask-image:linear-gradient(90deg,#000 42%,transparent 58%);mask-image:linear-gradient(90deg,#000 42%,transparent 58%);
   -webkit-mask-size:260% 100%;mask-size:260% 100%;-webkit-mask-position:100% 0;mask-position:100% 0;-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
 .hero-name.done{-webkit-mask-image:none;mask-image:none}
@@ -132,27 +166,48 @@ section{position:relative;overflow:hidden;contain:layout paint}
 
 /* CARTA */
 #carta{background:radial-gradient(80% 60% at 50% 30%,rgba(3,97,7,.25),transparent 70%),var(--bg)}
+#carta .inner{padding-bottom:150px}
 .letter{perspective:1400px}
-.paper{position:relative;padding:54px 30px 46px;border-radius:4px;color:var(--ink);text-align:left;transform-origin:50% 0;
+.paper{position:relative;padding:58px 30px 78px;border-radius:3px;color:var(--ink);text-align:left;transform-origin:50% 0;
   background:
-   radial-gradient(140% 100% at 50% 0%,rgba(255,255,255,.55),transparent 55%),
-   radial-gradient(90% 70% at 100% 100%,rgba(196,160,96,.35),transparent 70%),
-   radial-gradient(90% 70% at 0% 100%,rgba(196,160,96,.28),transparent 70%),
-   #F7E7CE;
-  box-shadow:0 30px 70px rgba(0,0,0,.55),0 0 0 1px rgba(212,175,55,.5),inset 0 0 0 8px #F7E7CE,inset 0 0 0 9px rgba(143,109,27,.55)}
-.paper .corner{position:absolute;width:46px;height:46px;color:var(--gold-deep)}
-.paper .corner.tl{top:14px;left:14px}.paper .corner.tr{top:14px;right:14px;transform:scaleX(-1)}
-.paper .corner.bl{bottom:14px;left:14px;transform:scaleY(-1)}.paper .corner.br{bottom:14px;right:14px;transform:scale(-1)}
-.paper h2{font-family:var(--f-cap);font-weight:700;font-size:14px;letter-spacing:.3em;text-align:center;color:var(--gold-deep);margin-bottom:22px}
-.paper p{font-size:19px;line-height:1.62;font-weight:500;color:var(--ink);margin-bottom:14px}
-.drop{float:left;font-family:var(--f-deco);font-size:68px;line-height:.86;margin:6px 10px 0 0;padding:4px 6px 0;color:transparent}
-.paper .sign{font-family:var(--f-script);font-size:46px;line-height:1;text-align:right;color:#6d5214;margin-top:14px}
+   radial-gradient(130% 80% at 50% 6%,rgba(255,253,244,.9),transparent 60%),
+   radial-gradient(70% 45% at 0% 100%,rgba(170,124,52,.34),transparent 70%),
+   radial-gradient(70% 45% at 100% 100%,rgba(170,124,52,.34),transparent 70%),
+   radial-gradient(55% 35% at 100% 0%,rgba(170,124,52,.2),transparent 70%),
+   radial-gradient(55% 35% at 0% 0%,rgba(170,124,52,.16),transparent 70%),
+   url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .42 0 0 0 0 .3 0 0 0 0 .12 0 0 0 .11 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>"),#F7E7CE;
+  box-shadow:0 36px 70px rgba(0,0,0,.6),0 0 0 1px rgba(143,109,27,.6),inset 0 0 46px rgba(150,104,38,.3)}
+.paper .frame{position:absolute;inset:12px;border:1px solid rgba(143,109,27,.6);pointer-events:none}
+.paper .frame::after{content:"";position:absolute;inset:4px;border:1px solid rgba(143,109,27,.28)}
+.paper .corner{position:absolute;width:54px;height:54px;color:#8a6514;z-index:1;pointer-events:none}
+.paper .corner svg{display:block;width:100%;height:100%}
+.paper .corner.tl{top:5px;left:5px}.paper .corner.tr{top:5px;right:5px;transform:scaleX(-1)}
+.paper .corner.bl{bottom:5px;left:5px;transform:scaleY(-1)}.paper .corner.br{bottom:5px;right:5px;transform:scale(-1,-1)}
+.p-top{display:flex;align-items:center;justify-content:center;gap:4px;margin-bottom:8px}
+.p-top svg{width:78px;height:22px;color:#8a6514;overflow:visible}
+.p-top svg.r{transform:scaleX(-1)}
+.p-top img{width:36px;filter:drop-shadow(0 2px 3px rgba(110,80,20,.35))}
+.st{stroke-dasharray:100}
+.p-eb{font-family:var(--f-cap);font-weight:700;font-size:12px;letter-spacing:.34em;text-align:center;color:var(--moss)}
+.p-h{font-family:var(--f-deco);font-weight:700;font-size:clamp(25px,7.4vw,32px);line-height:1.22;text-align:center;margin:6px 0 0;padding:.1em 0;background:var(--foil-deep);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.p-div{display:block;width:160px;height:22px;margin:8px auto 24px;color:#8a6514}
+.paper p{font-size:19px;line-height:1.66;font-weight:500;color:var(--ink);margin-bottom:14px}
+.drop{float:left;width:62px;height:62px;margin:6px 12px 2px 0;display:flex;align-items:center;justify-content:center;border-radius:2px;
+  background:radial-gradient(circle at 50% 38%,#127019,#043a09 78%);
+  box-shadow:0 0 0 1px #8a6514,inset 0 0 0 3px #043a09,inset 0 0 0 4px rgba(236,210,126,.85),0 5px 12px rgba(60,40,10,.35)}
+.drop b{font-family:var(--f-deco);font-weight:700;font-size:40px;line-height:1;padding-top:5px;background:var(--foil);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+.sign-wrap{text-align:right;margin-top:6px}
+.sign{display:inline-block;font-family:var(--f-script);font-size:54px;line-height:1.2;padding:.18em .18em 0;color:#6d5214}
+.sign-fl{display:block;width:160px;height:18px;margin:-10px 0 0 auto;color:#8a6514}
+.seal{position:absolute;left:50%;bottom:-44px;width:92px;height:92px;margin-left:-46px;z-index:3}
+.seal svg{width:100%;height:100%;filter:drop-shadow(0 7px 9px rgba(0,0,0,.5))}
+.seal b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--f-deco);font-weight:700;font-size:25px;padding-top:3px;letter-spacing:.02em}
 .w{display:inline-block}
 
 /* FAMILIA */
 #familia .inner{padding-top:40px;padding-bottom:110px}
 .fam-block+.fam-block{margin-top:46px}
-.fam-block h3{font-family:var(--f-script);font-size:44px;font-weight:400;line-height:1.1;margin-bottom:6px}
+.fam-block h3{font-family:var(--f-script);font-size:46px;font-weight:400;line-height:1.25;padding:.22em .2em .06em;margin:-.22em 0 4px}
 .fam-block .rule{width:0;margin:6px auto 16px}
 .fam-name{font-family:var(--f-cap);font-weight:600;font-size:clamp(15px,4.3vw,18px);letter-spacing:.08em;line-height:1.5;color:var(--champ);margin:6px 0}
 .fam-amp{font-family:var(--f-script);font-size:30px;color:var(--gold);line-height:1}
@@ -176,15 +231,15 @@ section{position:relative;overflow:hidden;contain:layout paint}
 .cal-g .d.on{color:#fff6d0;font-weight:700}
 .cal-g .d.on svg{position:absolute;left:50%;top:50%;width:46px;height:46px;transform:translate(-50%,-52%);overflow:visible}
 .cal-g .d.on .perch{position:absolute;width:24px;right:-10px;top:-14px;transform:rotate(18deg)}
-.place{margin-top:30px;display:inline-flex;align-items:center;gap:10px;font-family:var(--f-cap);font-weight:700;font-size:15px;letter-spacing:.14em;color:var(--champ)}
-.place svg{width:18px;height:18px;color:var(--gold)}
-.place small{display:block;font-family:var(--f-body);font-weight:600;font-size:16px;letter-spacing:.04em;color:var(--leaf);text-transform:none}
+.place{margin-top:30px;display:flex;flex-direction:column;align-items:center;gap:4px;font-family:var(--f-cap);font-weight:700;font-size:16px;letter-spacing:.16em;color:var(--champ)}
+.place .pl-sub{display:inline-flex;align-items:center;gap:7px;font-family:var(--f-body);font-weight:600;font-size:17px;letter-spacing:.03em;color:var(--leaf)}
+.place svg{width:17px;height:17px;color:var(--gold);flex:none}
 
 /* CUENTA */
 #cuenta{min-height:92svh}
 #cuenta .bgp{background-image:url(img/bosque-noche.webp)}
 #cuenta .tint{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(3,12,6,.55),rgba(3,12,6,.78))}
-#cuenta h2{font-family:var(--f-script);font-weight:400;font-size:56px;line-height:1.05;margin-top:8px}
+#cuenta h2{font-family:var(--f-script);font-weight:400;font-size:56px;line-height:1.25;padding:.22em .2em .04em;margin-top:-.1em}
 #cuenta .sub{font-size:19px;font-weight:600;color:var(--champ);margin-top:8px}
 .cd{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:36px auto 0;max-width:440px;perspective:900px}
 .md{position:relative;aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:50%;background:radial-gradient(circle at 50% 35%,rgba(20,60,26,.9),rgba(4,16,8,.92));box-shadow:0 10px 26px rgba(0,0,0,.5),0 0 22px rgba(212,175,55,.15)}
@@ -224,22 +279,34 @@ footer{position:relative;z-index:2;text-align:center;padding:70px 20px calc(60px
 .mono-perch{position:absolute;width:30px}
 .mono-perch.a{left:-10px;top:16px;transform:rotate(-24deg)}
 .mono-perch.b{right:-12px;bottom:18px;transform:rotate(28deg) scaleX(-1)}
-footer .fn{font-family:var(--f-script);font-size:40px;margin-top:16px;line-height:1.1}
+footer .fn{font-family:var(--f-script);font-size:42px;margin-top:6px;line-height:1.25;padding:.22em .2em .04em;display:inline-block}
 footer .fd{font-family:var(--f-cap);font-weight:600;font-size:13px;letter-spacing:.3em;color:var(--leaf);margin-top:6px}
 .credit{display:inline-block;margin-top:40px;font-family:var(--f-cap);font-weight:600;font-size:11px;letter-spacing:.22em;color:rgba(247,231,206,.7);text-decoration:none}
 .credit span{color:var(--gold-soft)}
 
-/* MÚSICA */
-.music{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:70;width:52px;height:52px;border-radius:50%;border:1px solid var(--gold);background:rgba(4,14,7,.82);display:flex;align-items:center;justify-content:center;gap:3px;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .6s;box-shadow:0 6px 18px rgba(0,0,0,.5)}
+/* MÚSICA — frasco de luciérnagas */
+.music{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:70;width:62px;height:62px;border-radius:50%;padding:0;cursor:pointer;
+  border:1px solid rgba(212,175,55,.85);background:radial-gradient(circle at 50% 32%,#16401f,#05120a 72%);
+  display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .8s,box-shadow .8s;-webkit-tap-highlight-color:transparent;
+  box-shadow:0 10px 24px rgba(0,0,0,.6),inset 0 0 0 3px rgba(5,18,10,.95),inset 0 0 0 4px rgba(212,175,55,.32)}
 .music.show{opacity:1;pointer-events:auto}
-.music i{display:block;width:3px;height:16px;border-radius:2px;background:var(--gold-soft);transform-origin:50% 100%;transform:scaleY(.3)}
-.music.on i{animation:eq .9s ease-in-out infinite alternate}
-.music.on i:nth-child(2){animation-delay:-.3s}.music.on i:nth-child(3){animation-delay:-.6s}.music.on i:nth-child(4){animation-delay:-.15s}
-@keyframes eq{0%{transform:scaleY(.25)}100%{transform:scaleY(1)}}
+.music.on{box-shadow:0 10px 24px rgba(0,0,0,.6),0 0 28px rgba(206,238,128,.32),inset 0 0 0 3px rgba(5,18,10,.95),inset 0 0 0 4px rgba(212,175,55,.45)}
+.mu-ring{position:absolute;inset:-7px;border-radius:50%;border:1px dashed rgba(212,175,55,.5);pointer-events:none}
+.music.on .mu-ring{animation:orbit 18s linear infinite}
+.jar{width:32px;height:40px;overflow:visible}
+.jar-glow{opacity:0;transition:opacity 1s}
+.music.on .jar-glow{opacity:1;animation:jarPulse 2.6s ease-in-out infinite}
+@keyframes jarPulse{50%{opacity:.55}}
+.ff{transform-box:fill-box;transform-origin:center;opacity:.25;transition:opacity .8s}
+.music.on .ff{animation:ffMove var(--d,3.4s) ease-in-out infinite,ffBlink var(--b,1.7s) ease-in-out infinite}
+@keyframes ffMove{0%,100%{transform:translate(0,0)}33%{transform:translate(var(--dx),var(--dy))}66%{transform:translate(calc(var(--dx)*-.7),calc(var(--dy)*.6))}}
+@keyframes ffBlink{0%,100%{opacity:.35}50%{opacity:1}}
+.mu-hint{position:fixed;right:90px;bottom:calc(32px + env(safe-area-inset-bottom));z-index:70;padding:9px 16px;border-radius:999px;background:rgba(4,14,7,.9);border:1px solid rgba(212,175,55,.55);font-family:var(--f-body);font-weight:600;font-size:15px;color:var(--champ);white-space:nowrap;opacity:0;transform:translateX(12px);transition:opacity .6s,transform .6s;pointer-events:none}
+.mu-hint.show{opacity:1;transform:none}
 
 @media (min-width:900px){
   .inner{padding:140px 22px}
-  .paper{padding:64px 54px 54px}
+  .paper{padding:66px 54px 84px}
 }
 @media (prefers-reduced-motion:reduce){
   .key,.tap,.cover-front::after{animation:none}
@@ -252,15 +319,31 @@ footer .fd{font-family:var(--f-cap);font-weight:600;font-size:13px;letter-spacin
 <div id="bfs" aria-hidden="true"></div>
 <div class="flash" id="flash"></div>
 
+<div class="loader" id="loader" aria-label="Cargando">
+  <div class="ld-mono">
+    <svg viewBox="0 0 172 172"><defs><linearGradient id="ldg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff1b8"/><stop offset=".5" stop-color="#D4AF37"/><stop offset="1" stop-color="#8f6d1b"/></linearGradient></defs>
+      <circle class="ld-dots" cx="86" cy="86" r="84"/><circle class="ld-track" cx="86" cy="86" r="74"/><circle class="ld-prog" id="ldRing" cx="86" cy="86" r="74" pathLength="100"/></svg>
+    <b class="foil shine">DZ</b>
+  </div>
+  <div class="ld-txt">Abriendo el bosque encantado</div>
+  <div class="ld-pct"><span id="ldPct">0</span>%</div>
+</div>
+<div class="lbox t"></div><div class="lbox b"></div>
+
 <!-- ===== PORTADA: libro encantado ===== -->
 <div class="gate" id="gate" role="button" tabindex="0" aria-label="Abrir el Save the Date">
+  <div class="beam"><i></i></div>
+  <div class="mist m1"><i></i></div><div class="mist m2"><i></i></div>
   <div class="gate-top">
     <div class="eyebrow">Te ha llegado un Save the Date</div>
     <span class="rule"></span>
   </div>
+  <div class="book-lev">
+  <div class="book-shadow"><i></i></div>
   <div class="book-wrap" id="bookWrap">
     <div class="book" id="book">
       <div class="book-page">
+        <span class="pg-glow"></span>
         <div class="bp-eb">SAVE THE DATE</div>
         <div class="bp-name">Daenerys</div>
         <div class="bp-date">3 · ABRIL · 2027</div>
@@ -273,6 +356,7 @@ footer .fd{font-family:var(--f-cap);font-weight:600;font-size:13px;letter-spacin
             <span class="rule"></span>
           </div>
           <div class="tap"><b>TOCA AQUÍ</b><i>para abrir</i></div>
+          <span class="cover-glow"></span><span class="lock-ring"></span><span class="shade"></span>
         </div>
         <div class="cover-back"></div>
       </div>
@@ -281,6 +365,7 @@ footer .fd{font-family:var(--f-cap);font-weight:600;font-size:13px;letter-spacin
       <img src="img/llave.webp" alt="">
       <div class="tag"><small>PARA:</small><span id="paraName">Invitado Especial</span></div>
     </div>
+  </div>
   </div>
   <div class="gate-foot">«Una noche mágica bajo las luciérnagas…»</div>
 </div>
@@ -309,15 +394,20 @@ footer .fd{font-family:var(--f-cap);font-weight:600;font-size:13px;letter-spacin
     <div class="inner">
       <div class="letter">
         <div class="paper" id="paper">
-          <svg class="corner tl" viewBox="0 0 46 46" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 44V14C2 7 7 2 14 2h30"/><path d="M8 44V18c0-6 4-10 10-10h26" opacity=".6"/><circle cx="14" cy="14" r="3" fill="currentColor"/><path d="M20 20c6-2 10 2 8 7-2 4-8 3-8-1" /></svg>
-          <svg class="corner tr" viewBox="0 0 46 46" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 44V14C2 7 7 2 14 2h30"/><path d="M8 44V18c0-6 4-10 10-10h26" opacity=".6"/><circle cx="14" cy="14" r="3" fill="currentColor"/><path d="M20 20c6-2 10 2 8 7-2 4-8 3-8-1" /></svg>
-          <svg class="corner bl" viewBox="0 0 46 46" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 44V14C2 7 7 2 14 2h30"/><path d="M8 44V18c0-6 4-10 10-10h26" opacity=".6"/><circle cx="14" cy="14" r="3" fill="currentColor"/><path d="M20 20c6-2 10 2 8 7-2 4-8 3-8-1" /></svg>
-          <svg class="corner br" viewBox="0 0 46 46" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 44V14C2 7 7 2 14 2h30"/><path d="M8 44V18c0-6 4-10 10-10h26" opacity=".6"/><circle cx="14" cy="14" r="3" fill="currentColor"/><path d="M20 20c6-2 10 2 8 7-2 4-8 3-8-1" /></svg>
-          <h2 class="p-h">EN EL CORAZÓN DEL BOSQUE</h2>
-          <p class="p-txt"><span class="drop foil">E</span>ntre luciérnagas y alas doradas, el bosque encantado guarda un secreto: muy pronto celebraré mis quince años.</p>
+          <span class="frame"></span>
+          <span class="corner tl"><svg viewBox="0 0 54 54" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M3 51V19C3 10.2 10.2 3 19 3h32"/><path d="M9 51V22c0-7.2 5.8-13 13-13h29" opacity=".5"/><path d="M16 16c8-4 16 1 13 8-2 5-9 4-9-1 0-3 3-4 5-2"/><circle cx="16" cy="16" r="2.4" fill="currentColor"/><path d="M31 15c3-4 8-5 12-4-2 4-7 6-12 4zM15 31c-4 3-5 8-4 12 4-2 6-7 4-12z" fill="currentColor" stroke="none" opacity=".55"/></svg></span>
+          <span class="corner tr"><svg viewBox="0 0 54 54" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M3 51V19C3 10.2 10.2 3 19 3h32"/><path d="M9 51V22c0-7.2 5.8-13 13-13h29" opacity=".5"/><path d="M16 16c8-4 16 1 13 8-2 5-9 4-9-1 0-3 3-4 5-2"/><circle cx="16" cy="16" r="2.4" fill="currentColor"/><path d="M31 15c3-4 8-5 12-4-2 4-7 6-12 4zM15 31c-4 3-5 8-4 12 4-2 6-7 4-12z" fill="currentColor" stroke="none" opacity=".55"/></svg></span>
+          <span class="corner bl"><svg viewBox="0 0 54 54" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M3 51V19C3 10.2 10.2 3 19 3h32"/><path d="M9 51V22c0-7.2 5.8-13 13-13h29" opacity=".5"/><path d="M16 16c8-4 16 1 13 8-2 5-9 4-9-1 0-3 3-4 5-2"/><circle cx="16" cy="16" r="2.4" fill="currentColor"/><path d="M31 15c3-4 8-5 12-4-2 4-7 6-12 4zM15 31c-4 3-5 8-4 12 4-2 6-7 4-12z" fill="currentColor" stroke="none" opacity=".55"/></svg></span>
+          <span class="corner br"><svg viewBox="0 0 54 54" fill="none" stroke="currentColor" stroke-width="1.1"><path d="M3 51V19C3 10.2 10.2 3 19 3h32"/><path d="M9 51V22c0-7.2 5.8-13 13-13h29" opacity=".5"/><path d="M16 16c8-4 16 1 13 8-2 5-9 4-9-1 0-3 3-4 5-2"/><circle cx="16" cy="16" r="2.4" fill="currentColor"/><path d="M31 15c3-4 8-5 12-4-2 4-7 6-12 4zM15 31c-4 3-5 8-4 12 4-2 6-7 4-12z" fill="currentColor" stroke="none" opacity=".55"/></svg></span>
+          <div class="p-top"><svg viewBox="0 0 78 22" fill="none" stroke="currentColor" stroke-width="1.1" class="l"><path class="st vine" pathLength="100" d="M1 11h40c8 0 12-7 19-7 5 0 7 4 4 6.6-2.6 2-6.2 0-4.6-2.6"/><path class="lf" d="M24 11c3-5 8-6 11-5-2 4-6 6-11 5zM14 11c2 4 6 5 9 4-2-3-5-5-9-4z" fill="currentColor" stroke="none" opacity=".6"/><circle class="lf" cx="74" cy="13" r="1.6" fill="currentColor" stroke="none"/></svg><img src="img/mariposa.webp" alt=""><svg viewBox="0 0 78 22" fill="none" stroke="currentColor" stroke-width="1.1" class="r"><path class="st vine" pathLength="100" d="M1 11h40c8 0 12-7 19-7 5 0 7 4 4 6.6-2.6 2-6.2 0-4.6-2.6"/><path class="lf" d="M24 11c3-5 8-6 11-5-2 4-6 6-11 5zM14 11c2 4 6 5 9 4-2-3-5-5-9-4z" fill="currentColor" stroke="none" opacity=".6"/><circle class="lf" cx="74" cy="13" r="1.6" fill="currentColor" stroke="none"/></svg></div>
+          <div class="p-eb">UN SECRETO DEL BOSQUE</div>
+          <h2 class="p-h">En el corazón<br>del bosque</h2>
+          <svg class="p-div" viewBox="0 0 160 22" fill="none" stroke="currentColor" stroke-width="1"><path class="st" pathLength="100" d="M4 11h56"/><path class="st" pathLength="100" d="M156 11h-56"/><path class="lf" d="M80 3c-5 3-6 11 0 15 6-4 5-12 0-15z" fill="currentColor" stroke="none" opacity=".8"/><path class="st" pathLength="100" d="M66 11c4-5 9-5 11-2M94 11c-4-5-9-5-11-2M66 11c4 5 9 5 11 2M94 11c-4 5-9 5-11 2"/></svg>
+          <p class="p-txt"><span class="drop"><b>E</b></span>ntre luciérnagas y alas doradas, el bosque encantado guarda un secreto: muy pronto celebraré mis quince años.</p>
           <p class="p-txt">Las hadas ya preparan el camino, y quiero que tú formes parte de esta noche mágica.</p>
           <p class="p-txt">Aparta la fecha; la invitación formal llegará a ti muy pronto.</p>
-          <div class="sign">Daenerys</div>
+          <div class="sign-wrap"><div class="sign">Daenerys</div><svg class="sign-fl" viewBox="0 0 160 18" fill="none" stroke="currentColor" stroke-width="1.2"><path class="st" pathLength="100" d="M4 6c30 7 72 7 106-1 15-3 28-4 42 0-13 2-22 6-28 9"/></svg></div>
+          <div class="seal"><svg viewBox="0 0 88 88"><defs><radialGradient id="wax" cx=".42" cy=".36" r=".7"><stop offset="0" stop-color="#2a8a2f"/><stop offset=".45" stop-color="#036107"/><stop offset="1" stop-color="#012a04"/></radialGradient></defs><path d="M85.1 44.0 L86.1 46.8 L84.2 49.3 L85.0 52.2 L84.0 54.7 L81.3 56.7 L78.8 58.4 L76.8 60.2 L78.6 64.0 L78.4 67.0 L76.2 68.7 L75.5 71.6 L73.5 73.5 L71.1 75.0 L67.5 74.6 L64.1 74.1 L63.4 77.7 L61.8 80.0 L59.5 81.4 L57.3 83.2 L54.8 84.1 L52.3 85.8 L49.2 83.6 L46.4 80.7 L44.0 82.1 L41.5 82.8 L38.8 83.9 L36.1 83.8 L33.4 83.6 L30.0 85.1 L28.2 82.1 L27.1 78.3 L25.1 76.8 L22.9 75.6 L19.7 75.7 L17.9 73.8 L15.6 72.4 L11.5 72.5 L10.4 69.7 L10.6 66.3 L11.0 63.1 L10.3 60.6 L7.4 59.2 L7.4 56.4 L6.0 54.2 L2.6 52.2 L1.7 49.6 L2.0 46.8 L5.1 44.0 L6.3 41.5 L4.9 38.9 L6.6 36.6 L6.7 34.0 L5.5 30.9 L4.9 27.8 L5.1 24.8 L9.3 24.0 L11.9 22.5 L12.7 20.0 L15.3 18.9 L16.9 16.9 L18.4 14.8 L18.8 11.2 L19.7 7.6 L23.4 8.4 L26.4 8.3 L28.9 7.5 L31.6 7.5 L34.0 6.8 L36.7 7.4 L38.8 4.3 L41.2 0.9 L44.0 2.1 L46.7 3.0 L49.2 4.6 L51.7 5.3 L54.1 6.3 L55.8 9.4 L58.8 8.2 L62.5 6.6 L65.1 7.5 L67.3 9.1 L68.4 12.2 L70.7 13.6 L72.2 15.8 L71.6 19.8 L73.9 21.0 L77.1 21.9 L80.3 23.1 L82.1 25.2 L81.3 28.5 L83.1 30.7 L83.3 33.5 L81.0 36.6 L81.0 39.1 L81.8 41.5Z" fill="url(#wax)"/><circle cx="44" cy="44" r="29" fill="none" stroke="rgba(0,0,0,.28)" stroke-width="2"/><circle cx="44" cy="44" r="27" fill="none" stroke="rgba(236,210,126,.55)" stroke-width="1"/><path d="M24 30c5-8 13-12 22-12" stroke="rgba(255,255,255,.28)" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg><b class="foil">DZ</b></div>
         </div>
       </div>
     </div>
@@ -365,8 +455,8 @@ footer .fd{font-family:var(--f-cap);font-weight:600;font-size:13px;letter-spacin
         <div class="cal-g" id="calG"></div>
       </div>
       <div class="place f-place">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg>
-        <div>VILLA DE ZAACHILA<small>Oaxaca, México</small></div>
+        <div>VILLA DE ZAACHILA</div>
+        <div class="pl-sub"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></svg>Oaxaca, México</div>
       </div>
     </div>
   </section>
@@ -419,7 +509,26 @@ footer .fd{font-family:var(--f-cap);font-weight:600;font-size:13px;letter-spacin
   <a class="credit" href="https://www.instagram.com/elysium.invitaciones" target="_blank" rel="noopener">DISEÑO POR <span>@ELYSIUM.INVITACIONES</span></a>
 </footer>
 
-<button class="music" id="musicBtn" aria-label="Pausar o reproducir música"><i></i><i></i><i></i><i></i></button>
+<button class="music" id="musicBtn" aria-label="Pausar o reproducir música">
+  <span class="mu-ring"></span>
+  <svg class="jar" viewBox="0 0 40 50" aria-hidden="true"><defs>
+    <radialGradient id="ffg"><stop offset="0" stop-color="#fffbe0"/><stop offset=".35" stop-color="#e6f6a0"/><stop offset="1" stop-color="#b1dd8b" stop-opacity="0"/></radialGradient>
+    <radialGradient id="jgl" cx=".5" cy=".62" r=".55"><stop offset="0" stop-color="#f6e7a0" stop-opacity=".6"/><stop offset="1" stop-color="#b1dd8b" stop-opacity="0"/></radialGradient>
+    <linearGradient id="crk" x1="0" x2="1"><stop offset="0" stop-color="#6b4618"/><stop offset=".5" stop-color="#c0914a"/><stop offset="1" stop-color="#5e3d14"/></linearGradient>
+    <linearGradient id="gst" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f7e39a"/><stop offset=".5" stop-color="#D4AF37"/><stop offset="1" stop-color="#8f6d1b"/></linearGradient></defs>
+    <ellipse class="jar-glow" cx="20" cy="31" rx="17" ry="18" fill="url(#jgl)"/>
+    <rect x="13" y="2" width="14" height="6.5" rx="1.8" fill="url(#crk)"/>
+    <path d="M12.5 8.5h15v3.2c0 .8.5 1.4 1.2 1.8 3.6 2 5.8 5.4 5.8 10.2V39c0 4.4-3.6 8-8 8H13.5c-4.4 0-8-3.6-8-8V23.7c0-4.8 2.2-8.2 5.8-10.2.7-.4 1.2-1 1.2-1.8z" fill="rgba(177,221,139,.08)" stroke="url(#gst)" stroke-width="1.3"/>
+    <path d="M11.2 10.8h17.6" stroke="url(#gst)" stroke-width="1.7" stroke-linecap="round"/>
+    <path d="M9.6 25c0-3.2 1.3-5.6 3.6-7.1M9.6 29v6" stroke="rgba(255,255,255,.42)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+    <circle class="ff" cx="15" cy="34" r="3.4" fill="url(#ffg)" style="--dx:4px;--dy:-5px;--d:3.6s;--b:1.5s"/>
+    <circle class="ff" cx="25" cy="27" r="3" fill="url(#ffg)" style="--dx:-4px;--dy:5px;--d:4.2s;--b:2.1s"/>
+    <circle class="ff" cx="20" cy="40" r="2.6" fill="url(#ffg)" style="--dx:5px;--dy:-4px;--d:3.1s;--b:1.2s"/>
+    <circle class="ff" cx="26" cy="38" r="2.2" fill="url(#ffg)" style="--dx:-3px;--dy:-6px;--d:4.8s;--b:1.8s"/>
+    <circle class="ff" cx="16" cy="24" r="2" fill="url(#ffg)" style="--dx:3px;--dy:6px;--d:3.9s;--b:2.4s"/>
+  </svg>
+</button>
+<div class="mu-hint" id="muHint">Toca el frasco para pausar la música</div>
 <audio id="bg-music" src="https://bsjoelxktbvlavfoozhk.supabase.co/storage/v1/object/public/fotos-clientes/audio/xv-daenerys-zahory-urrutia-ruiz/cancion.mp3" preload="none" loop></audio>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -450,7 +559,7 @@ function unlockAudio(){
   var p=au.play();
   if(p&&p.then){p.then(function(){setPlaying(true);gsap.to(au,{volume:.6,duration:3});}).catch(function(){unlocked=false;document.addEventListener('pointerdown',unlockAudio,{once:true});});}
 }
-mBtn.addEventListener('click',function(e){e.stopPropagation();if(au.paused){au.play().then(function(){setPlaying(true);}).catch(function(){});}else{au.pause();setPlaying(false);}});
+mBtn.addEventListener('click',function(e){e.stopPropagation();var r=mBtn.getBoundingClientRect();if(au.paused){au.play().then(function(){setPlaying(true);rise(r.left+r.width/2,r.top+r.height/2,16);}).catch(function(){});}else{au.pause();setPlaying(false);}document.getElementById('muHint').classList.remove('show');});
 
 /* ---------- calendario abril 2027 (empieza jueves) ---------- */
 var g=document.getElementById('calG'),h='';
@@ -495,9 +604,11 @@ var small=W<700,NF=small?24:42,ND=small?34:60,flies=[],dust=[],trail=[];
 function rnd(a,b){return a+Math.random()*(b-a);}
 for(var f=0;f<NF;f++)flies.push({x:rnd(0,W),y:rnd(0,H),a:rnd(0,6.28),v:rnd(.18,.5),s:rnd(14,30),ph:rnd(0,6.28),sp:rnd(.6,1.6),warm:Math.random()<.35});
 for(var k=0;k<ND;k++)dust.push({x:rnd(0,W),y:rnd(0,H),r:rnd(.5,1.6),vy:rnd(.08,.3),vx:rnd(-.1,.1),ph:rnd(0,6.28),sp:rnd(1,3),star:Math.random()<.22});
-var ptr={x:-999,y:-999,on:false},intensity=1,scrollV=0,lastY=scrollY;
+var ptr={x:-999,y:-999,on:false},att={on:false,x:0,y:0,r:90},fling=0,intensity=1,scrollV=0,lastY=scrollY;
 addEventListener('scroll',function(){scrollV+=(scrollY-lastY);lastY=scrollY;},{passive:true});
 function spawn(x,y,n,burst){for(var i=0;i<n;i++){var a=rnd(0,6.28),sp=burst?rnd(.8,3.2):rnd(.1,.7);trail.push({x:x,y:y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp-(burst?.6:.2),life:1,dec:rnd(.012,.026),s:rnd(6,16)});}if(trail.length>240)trail.splice(0,trail.length-240);}
+function rise(x,y,n){for(var i=0;i<n;i++)trail.push({x:x,y:y,vx:rnd(-1,1),vy:rnd(-3.8,-1.2),life:1,dec:rnd(.008,.017),s:rnd(8,20)});if(trail.length>320)trail.splice(0,trail.length-320);}
+function streamDust(x,y,w,dur){var end=performance.now()+dur*1000;(function go(){rise(x+rnd(-w,w),y+rnd(-w*.5,w*.5),3);if(performance.now()<end)setTimeout(go,40);})();}
 addEventListener('pointermove',function(e){ptr.x=e.clientX;ptr.y=e.clientY;ptr.on=true;if(Math.random()<(isTouch?.9:.55))spawn(e.clientX,e.clientY,isTouch?2:1,false);},{passive:true});
 addEventListener('pointerdown',function(e){spawn(e.clientX,e.clientY,22,true);},{passive:true});
 addEventListener('pointerup',function(){if(isTouch)ptr.on=false;},{passive:true});
@@ -507,11 +618,12 @@ function loop(now){
   var t=(now-t0)/1000;
   cx.clearRect(0,0,W,H);
   cx.globalCompositeOperation='lighter';
-  scrollV*=.9;
+  scrollV*=.9;fling*=.965;
   // luciérnagas
   for(var i=0;i<flies.length;i++){var p=flies[i];
     p.a+=(Math.random()-.5)*.22;
-    var vx=Math.cos(p.a)*p.v,vy=Math.sin(p.a)*p.v-.05;
+    var vx=Math.cos(p.a)*p.v*(1+fling),vy=Math.sin(p.a)*p.v*(1+fling)-.05;
+    if(att.on){var ax=att.x-p.x,ay=att.y-p.y,ad=Math.sqrt(ax*ax+ay*ay)||1,fk=Math.max(-1.4,Math.min(1.4,(ad-att.r)*.012));vx+=ax/ad*fk-ay/ad*.55;vy+=ay/ad*fk+ax/ad*.55;}
     if(ptr.on){var dx=ptr.x-p.x,dy=ptr.y-p.y,dd=dx*dx+dy*dy;if(dd<26000&&dd>400){vx+=dx/Math.sqrt(dd)*.35;vy+=dy/Math.sqrt(dd)*.35;}}
     p.x+=vx;p.y+=vy-scrollV*.02*p.v;
     if(p.x<-30)p.x=W+30;if(p.x>W+30)p.x=-30;if(p.y<-30)p.y=H+30;if(p.y>H+30)p.y=-30;
@@ -555,35 +667,115 @@ function fly(el,first){
       el.style.transform='translate3d('+x+'px,'+y+'px,0) rotate('+(ang*.35)+'deg)';},
     onComplete:function(){el.style.opacity=0;fly(el,false);}});
 }
+function emergeButterflies(x0,y0,n){
+  for(var i=0;i<n;i++)(function(i){
+    var el=document.createElement('div');el.className='bf';el.innerHTML='<img src="img/mariposa.webp" alt="">';bfs.appendChild(el);
+    var sz=rnd(26,48);el.style.width=sz+'px';el.style.height=(sz*.93)+'px';
+    var ang=(-90+rnd(-75,75))*Math.PI/180,dist=rnd(H*.5,H*.95),side=rnd(-1,1)*120;
+    var x2=x0+Math.cos(ang)*dist,y2=y0+Math.sin(ang)*dist,x1=x0+Math.cos(ang)*dist*.35+side,y1=y0+Math.sin(ang)*dist*.35;
+    var o={t:0},px=x0,py=y0;
+    gsap.to(o,{t:1,duration:rnd(2.4,3.6),ease:'power1.in',delay:i*.09,onStart:function(){el.style.opacity=1;},
+      onUpdate:function(){var u=1-o.t,x=u*u*x0+2*u*o.t*x1+o.t*o.t*x2,y=u*u*y0+2*u*o.t*y1+o.t*o.t*y2,sc=.25+.85*Math.min(1,o.t*2.2),ang2=Math.atan2(y-py,x-px)*57.3+90;px=x;py=y;
+        el.style.transform='translate3d('+(x-sz/2)+'px,'+(y-sz/2)+'px,0) rotate('+(ang2*.4)+'deg) scale('+sc+')';el.style.opacity=o.t>.8?(1-o.t)*5:1;},
+      onComplete:function(){el.remove();}});
+  })(i);
+}
 function startButterflies(){for(var b=0;b<(small?3:4);b++){var el=document.createElement('div');el.className='bf';el.innerHTML='<img src="img/mariposa.webp" alt="">';bfs.appendChild(el);fly(el,true);}}
 
 /* =========================================================
-   PORTADA — inclinación del libro y apertura
+   PORTADA — loader, entrada cinematográfica y apertura del libro
    ========================================================= */
-var gate=document.getElementById('gate'),bookWrap=document.getElementById('bookWrap'),cover=document.getElementById('cover'),key=document.getElementById('key'),opened=false;
-var rx=gsap.quickTo(bookWrap,'rotationX',{duration:.8,ease:'power3'}),ry=gsap.quickTo(bookWrap,'rotationY',{duration:.8,ease:'power3'});
-gate.addEventListener('pointermove',function(e){if(opened)return;var nx=e.clientX/innerWidth-.5,ny=e.clientY/innerHeight-.5;ry(nx*16);rx(-ny*12);});
-gsap.fromTo('.gate-top',{opacity:0,y:-14},{opacity:1,y:0,duration:1.2,ease:'power2.out',delay:.2});
-gsap.fromTo(bookWrap,{opacity:0,y:40,rotationX:18,scale:.92},{opacity:1,y:0,rotationX:0,scale:1,duration:1.6,ease:'power3.out',delay:.35});
-gsap.fromTo('.gate-foot',{opacity:0},{opacity:1,duration:1.4,delay:1.2});
+var gate=document.getElementById('gate'),bookWrap=document.getElementById('bookWrap'),cover=document.getElementById('cover'),key=document.getElementById('key'),opened=false,gateReady=false;
+var rx=gsap.quickTo(bookWrap,'rotationX',{duration:.9,ease:'power3'}),ry=gsap.quickTo(bookWrap,'rotationY',{duration:.9,ease:'power3'});
+gate.addEventListener('pointermove',function(e){if(opened||!gateReady)return;var nx=e.clientX/innerWidth-.5,ny=e.clientY/innerHeight-.5;ry(nx*16);rx(-ny*12);});
+gsap.set('.tap',{xPercent:-46});
+gsap.set(['.gate-top .eyebrow','.gate-top .rule','.gate-foot',bookWrap,key,'.tap','.cover-text > *'],{opacity:0});
 
+/* ---- loader: el anillo se llena con la carga real y las luciérnagas orbitan el monograma ---- */
+var ldRing=document.getElementById('ldRing'),ldPct=document.getElementById('ldPct'),ldT0=performance.now(),ldTotal=0,ldDone=0,ldShown=0,ldFinished=false;
+function track(p){ldTotal++;Promise.resolve(p).then(function(){},function(){}).then(function(){ldDone++;});}
+function imgP(src){return new Promise(function(r){var i=new Image();i.onload=i.onerror=r;i.src=src;});}
+['img/libro.webp','img/llave.webp','img/poster.webp','img/mariposa.webp'].forEach(function(u){track(imgP(u));});
+if(document.fonts&&document.fonts.ready)track(document.fonts.ready);
+track(new Promise(function(r){vid.addEventListener('canplay',r,{once:true});setTimeout(r,5000);}));
+(function(){var m=document.querySelector('.ld-mono').getBoundingClientRect();att.x=m.left+m.width/2;att.y=m.top+m.height/2;att.r=m.width*.56;att.on=true;})();
+gsap.fromTo('.ld-mono',{opacity:0,scale:.85},{opacity:1,scale:1,duration:1.2,ease:'power3.out'});
+gsap.fromTo('.ld-txt,.ld-pct',{opacity:0,y:8},{opacity:1,y:0,duration:1,stagger:.15,delay:.3});
+function ldTick(){
+  if(ldFinished)return;
+  var el=(performance.now()-ldT0)/1000,real=ldTotal?ldDone/ldTotal:1,tgt=Math.min(real,el/2.6)*100;
+  if(el>8)tgt=100;
+  ldShown+=(tgt-ldShown)*.06;
+  if(tgt>=100&&ldShown>99.4){ldShown=100;ldFinished=true;}
+  ldPct.textContent=Math.round(ldShown);ldRing.style.strokeDashoffset=100-ldShown;
+  if(ldFinished){gsap.ticker.remove(ldTick);finishLoader();}
+}
+gsap.ticker.add(ldTick);
+function finishLoader(){
+  var m=document.querySelector('.ld-mono').getBoundingClientRect(),cx0=m.left+m.width/2,cy0=m.top+m.height/2;
+  var tl=gsap.timeline();
+  tl.to('.ld-mono b',{scale:1.14,duration:.6,ease:'power2.out'})
+    .to('.ld-txt,.ld-pct',{opacity:0,y:-6,duration:.5},'<')
+    .add(function(){att.on=false;fling=5;for(var i=0;i<flies.length;i++)flies[i].a=Math.atan2(flies[i].y-cy0,flies[i].x-cx0);spawn(cx0,cy0,46,true);})
+    .to('.ld-mono',{scale:1.9,opacity:0,filter:'blur(10px)',duration:1,ease:'power2.in'},'-=.05')
+    .to('#loader',{opacity:0,duration:.9,ease:'power1.inOut'},'-=.55')
+    .add(function(){var l=document.getElementById('loader');if(l)l.remove();},'+=0')
+    .add(gateIntro,'-=1.1');
+}
+
+/* ---- entrada: rayo de luz, niebla y el libro emerge de la oscuridad ---- */
+function gateIntro(){
+  var tl=gsap.timeline({onComplete:function(){gateReady=true;}});
+  tl.fromTo('.beam',{opacity:0,scaleY:.3},{opacity:1,scaleY:1,transformOrigin:'50% 0%',duration:2.4,ease:'power2.out'},0)
+    .fromTo('.mist',{opacity:0},{opacity:1,duration:2.6,stagger:.4},0)
+    .fromTo('.gate-top .eyebrow',{opacity:0,letterSpacing:'14px'},{opacity:1,letterSpacing:'4px',duration:1.8,ease:'power3.out'},.3)
+    .fromTo('.gate-top .rule',{opacity:0,scaleX:0},{opacity:1,scaleX:1,duration:1.3,ease:'power2.inOut'},.8)
+    .fromTo(bookWrap,{opacity:0,y:110,rotationX:38,scale:.82,filter:'brightness(.15)'},{opacity:1,y:0,rotationX:0,scale:1,filter:'brightness(1)',duration:2.6,ease:'expo.out',clearProps:'filter'},.45)
+    .fromTo('.book-shadow',{opacity:0,scaleX:.3},{opacity:1,scaleX:1,duration:2.2,ease:'power2.out'},.8)
+    .fromTo('.cover-text > *',{opacity:0,y:14,filter:'blur(6px)'},{opacity:1,y:0,filter:'blur(0px)',duration:1.1,stagger:.2,ease:'power2.out',clearProps:'filter'},1.5)
+    .fromTo('.cover-glow',{opacity:0},{opacity:.65,duration:.7,yoyo:true,repeat:1,ease:'sine.inOut'},1.7)
+    .fromTo(key,{opacity:0,y:-80,rotation:-50},{opacity:1,y:0,rotation:0,duration:1.9,ease:'elastic.out(1,.42)',onComplete:function(){key.classList.add('swing');}},2)
+    .fromTo('.tap',{opacity:0,y:12,scale:.88},{opacity:1,y:0,scale:1,duration:1,ease:'back.out(2)'},2.5)
+    .fromTo('.gate-foot',{opacity:0,y:10},{opacity:1,y:0,duration:1.3},2.8);
+}
+
+/* ---- apertura: la llave entra y gira, la tapa se abre, salen luz y mariposas, la cámara entra a la página ---- */
 function openGate(){
-  if(opened)return;opened=true;
+  if(opened||!gateReady)return;opened=true;
   unlockAudio();
   vid.play().catch(function(){});
-  key.style.animation='none';
-  var tl=gsap.timeline({onComplete:function(){gate.remove();}});
-  tl.to(key,{rotation:0,duration:.25,ease:'power2.out'})
-    .to(key,{x:'120%',y:'-120%',rotation:-90,duration:.6,ease:'power2.inOut'})
-    .to(key,{opacity:0,duration:.3},'-=.15')
-    .to('.tap',{opacity:0,duration:.3},'<')
-    .to(bookWrap,{rotationX:0,rotationY:0,duration:.4},'<')
-    .to(cover,{rotationY:-168,duration:1.5,ease:'power3.inOut'},'-=.05')
-    .to('.gate-top,.gate-foot',{opacity:0,duration:.6},'<')
-    .to(bookWrap,{scale:2.8,duration:1.3,ease:'power2.in'},'-=.55')
-    .to('#flash',{opacity:1,duration:.45,ease:'power1.in'},'-=.5')
-    .add(function(){document.body.classList.remove('locked');gate.style.background='transparent';bookWrap.style.opacity=0;window.scrollTo(0,0);heroIntro();})
-    .to('#flash',{opacity:0,duration:1.2,ease:'power2.out'});
+  key.classList.remove('swing');
+  gsap.set(key,{rotation:0});
+  var kr=key.getBoundingClientRect(),cr=cover.getBoundingClientRect();
+  var tx=cr.left+cr.width*.56,ty=cr.top+cr.height*.5,kx=kr.left+kr.width/2,ky=kr.top+kr.height*.3;
+  var bx=cr.left+cr.width*.55,by=cr.top+cr.height*.48;
+  gsap.set(key,{transformOrigin:'50% 30%'});
+  var tl=gsap.timeline();
+  tl.to('.lbox',{scaleY:1,duration:1,ease:'power3.inOut'},0)
+    .to('.tap,.gate-foot,.gate-top',{opacity:0,duration:.5},0)
+    .to(bookWrap,{rotationX:0,rotationY:0,duration:.7,ease:'power2.out'},0)
+    .to('.book-lev',{y:0,duration:.6},0)
+    .to(key,{scale:1.12,duration:.35,ease:'power2.out'},0)
+    .to('.tag',{opacity:0,y:20,rotation:-30,duration:.45,ease:'power2.in'},0)
+    .to(key,{x:tx-kx,y:ty-ky,rotation:-90,duration:1,ease:'power3.inOut'},.3)
+    .to(key,{rotation:0,duration:.55,ease:'back.out(3)'},1.32)
+    .add(function(){spawn(tx,ty,26,true);},1.5)
+    .fromTo('.lock-ring',{opacity:1,scale:.2},{opacity:0,scale:3.2,duration:.9,ease:'power2.out'},1.5)
+    .to('.cover-glow',{opacity:.9,duration:.5},1.5)
+    .to(key,{scale:.15,opacity:0,duration:.45,ease:'power2.in'},1.85)
+    .addLabel('open',2.15)
+    .to(cover,{rotationY:-174,duration:2.1,ease:'power3.inOut'},'open')
+    .to('.cover-glow',{opacity:0,duration:.6},'open')
+    .to('.cover-front .shade',{opacity:.8,duration:1.5,ease:'power1.in'},'open')
+    .fromTo('.pg-glow',{opacity:0,scale:.25},{opacity:1,scale:1.5,duration:2,ease:'power2.out'},'open+=.35')
+    .add(function(){emergeButterflies(bx,by,small?6:8);streamDust(bx,by,cr.width*.3,1.6);},'open+=.75')
+    .to('.beam,.mist,.book-shadow',{opacity:0,duration:.9},'open+=1.1')
+    .to(bookWrap,{scale:4.6,y:-innerHeight*.02,duration:1.8,ease:'power3.in'},'open+=1.15')
+    .to('#flash',{opacity:1,duration:.6,ease:'power2.in'},'open+=2.35')
+    .add(function(){document.body.classList.remove('locked');gate.style.visibility='hidden';window.scrollTo(0,0);heroIntro();},'open+=2.95')
+    .to('#flash',{opacity:0,duration:1.8,ease:'power2.out'},'open+=3')
+    .to('.lbox',{scaleY:0,duration:1.4,ease:'power3.inOut'},'open+=3.7')
+    .add(function(){gate.remove();});
 }
 gate.addEventListener('click',openGate);
 gate.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();openGate();}});
@@ -596,10 +788,11 @@ sur.innerHTML=sur.textContent.split('').map(function(c){return '<span class="ch"
 gsap.set('#heroC > *',{opacity:0});
 function heroIntro(){
   mBtn.classList.add('show');
+  setTimeout(function(){var hn=document.getElementById('muHint');hn.classList.add('show');setTimeout(function(){hn.classList.remove('show');},5000);},2600);
   startButterflies();
   var nm=document.getElementById('heroName'),mk={p:100};
   var tl=gsap.timeline();
-  tl.fromTo('#heroMedia',{scale:1.22},{scale:1.04,duration:3.2,ease:'power2.out'},0)
+  tl.fromTo('#heroMedia',{scale:1.32,filter:'blur(14px) brightness(1.7)'},{scale:1.04,filter:'blur(0px) brightness(1)',duration:3.6,ease:'expo.out',clearProps:'filter'},0)
     .fromTo('.h-eb',{opacity:0,letterSpacing:'.9em'},{opacity:1,letterSpacing:'.34em',duration:1.6,ease:'power3.out'},.4)
     .fromTo('.h-xv',{opacity:0,y:-16},{opacity:1,y:0,duration:1.1,ease:'power2.out'},.7)
     .set(nm,{opacity:1},1.1)
@@ -634,12 +827,27 @@ function scrollAnims(){
     txt.split(' ').forEach(function(w,i){if(!w)return;var s=document.createElement('span');s.className='w';s.textContent=w;p.appendChild(s);p.appendChild(document.createTextNode(' '));});
   });
   var tlc=gsap.timeline({scrollTrigger:{trigger:'#carta',start:'top 72%',once:true}});
-  tlc.fromTo(paper,{rotationX:-80,opacity:0,y:40},{rotationX:0,opacity:1,y:0,duration:1.6,ease:'power3.out',immediateRender:false})
-     .fromTo('.paper .corner',{opacity:0,scale:.4},{opacity:1,scale:1,duration:.8,stagger:.1,ease:'back.out(2)',immediateRender:false},'-=.7')
-     .fromTo('.p-h',{opacity:0,letterSpacing:'.7em'},{opacity:1,letterSpacing:'.3em',duration:1.1,ease:'power3.out',immediateRender:false},'-=.6')
-     .fromTo('.drop',{opacity:0,scale:2.2,rotation:-12},{opacity:1,scale:1,rotation:0,duration:1,ease:'power3.out',immediateRender:false},'-=.6')
-     .fromTo('.paper .w',{opacity:0,y:6,filter:'blur(5px)'},{opacity:1,y:0,filter:'blur(0px)',duration:.6,stagger:.028,ease:'power1.out',clearProps:'filter',immediateRender:false},'-=.6')
-     .fromTo('.paper .sign',{opacity:0,clipPath:'inset(0 100% 0 0)'},{opacity:1,clipPath:'inset(0 0% 0 0)',duration:1.4,ease:'power2.inOut',immediateRender:false},'-=.3');
+  var IR={immediateRender:false};
+  function o(x){return Object.assign({},IR,x);}
+  tlc.fromTo(paper,{rotationX:-80,opacity:0,y:40},o({rotationX:0,opacity:1,y:0,duration:1.6,ease:'power3.out'}))
+     .fromTo('.paper .frame',{opacity:0,scale:.94},o({opacity:1,scale:1,duration:1.1,ease:'power2.out'}),'-=.9')
+     .fromTo('.paper .corner svg',{opacity:0,scale:.3,rotation:-35},o({opacity:1,scale:1,rotation:0,duration:.9,stagger:.08,ease:'back.out(2)'}),'-=.8')
+     .fromTo('.p-top .vine',{strokeDashoffset:100},o({strokeDashoffset:0,duration:1.3,ease:'power2.inOut'}),'-=.6')
+     .fromTo('.p-top .lf',{opacity:0,scale:0,transformOrigin:'50% 50%'},o({opacity:.6,scale:1,duration:.6,stagger:.08}),'-=.8')
+     .fromTo('.p-top img',{opacity:0,y:-34,x:20,rotation:-30,scale:.5},o({opacity:1,y:0,x:0,rotation:0,scale:1,duration:1.4,ease:'power2.out'}),'-=1.1')
+     .fromTo('.p-eb',{opacity:0,letterSpacing:'10px'},o({opacity:1,letterSpacing:'4px',duration:1,ease:'power3.out'}),'-=.8')
+     .fromTo('.p-h',{opacity:0,y:20,clipPath:'inset(0% 0% 100% 0%)'},o({opacity:1,y:0,clipPath:'inset(-20% 0% -20% 0%)',duration:1.2,ease:'power3.out'}),'-=.6')
+     .fromTo('.p-div .st',{strokeDashoffset:100},o({strokeDashoffset:0,duration:1,ease:'power2.inOut'}),'-=.6')
+     .fromTo('.p-div .lf',{opacity:0,scale:0,transformOrigin:'50% 100%'},o({opacity:.8,scale:1,duration:.7,ease:'back.out(2)'}),'-=.5')
+     .fromTo('.drop',{opacity:0,rotationY:95},o({opacity:1,rotationY:0,duration:1,ease:'power3.out'}),'-=.4')
+     .fromTo('.drop b',{opacity:0,scale:1.7},o({opacity:1,scale:1,duration:.9,ease:'power2.out'}),'-=.55')
+     .fromTo('.paper .w',{opacity:0,y:6,filter:'blur(5px)'},o({opacity:1,y:0,filter:'blur(0px)',duration:.6,stagger:.026,ease:'power1.out',clearProps:'filter'}),'-=.6')
+     .fromTo('.paper .sign',{clipPath:'inset(-40% 100% -40% -10%)'},o({clipPath:'inset(-40% -10% -40% -10%)',duration:1.5,ease:'power2.inOut'}),'-=.3')
+     .fromTo('.sign-fl .st',{strokeDashoffset:100},o({strokeDashoffset:0,duration:1,ease:'power2.out'}),'-=.5')
+     .fromTo('.seal',{opacity:0,scale:2.8,rotation:-40},o({opacity:1,scale:1,rotation:-8,duration:.5,ease:'power4.in'}),'+=.1')
+     .add(function(){var r=document.querySelector('.seal').getBoundingClientRect();spawn(r.left+r.width/2,r.top+r.height/2,24,true);})
+     .to(paper,{y:3,duration:.08,yoyo:true,repeat:1,ease:'power1.inOut'},'<')
+     .to('.seal',{scale:1.05,duration:.14,yoyo:true,repeat:1,ease:'power1.out'},'<');
 
   // 2. FAMILIA — línea que crece desde el centro y nombres que se descubren de izquierda a derecha
   document.querySelectorAll('.fam-block').forEach(function(b){
