@@ -270,7 +270,14 @@ section{position:relative;overflow:hidden;contain:layout paint}
 @keyframes btnSheen{55%,100%{transform:translateX(350%) skewX(-20deg)}}
 
 /* FOOTER */
-footer{position:relative;z-index:2;text-align:center;padding:70px 20px calc(60px + env(safe-area-inset-bottom));background:linear-gradient(var(--bg),#020803)}
+.q-photo{position:relative;width:min(74vw,320px);aspect-ratio:600/790;margin:0 auto -54px}
+.q-photo img{position:relative;z-index:1;display:block;width:100%;height:100%;-webkit-mask-image:linear-gradient(#000 50%,transparent 93%),linear-gradient(90deg,transparent 0%,#000 16%,#000 84%,transparent 100%);-webkit-mask-composite:source-in;mask-image:linear-gradient(#000 50%,transparent 93%),linear-gradient(90deg,transparent 0%,#000 16%,#000 84%,transparent 100%);mask-composite:intersect}
+.q-glow{position:absolute;left:8%;right:8%;top:2%;height:62%;border-radius:50%;background:radial-gradient(closest-side,rgba(236,210,126,.24),rgba(3,97,7,.2) 58%,transparent);z-index:0}
+.q-arch{position:absolute;left:9%;top:-5%;width:82%;height:78%;z-index:0;overflow:visible;fill:none;stroke:var(--gold);stroke-width:1.1;-webkit-mask-image:linear-gradient(#000 60%,transparent);mask-image:linear-gradient(#000 60%,transparent)}
+.q-arch .st2{stroke-dasharray:100}
+.q-arch circle{fill:var(--gold);stroke:none}
+.mono{z-index:2}
+footer{position:relative;z-index:2;text-align:center;padding:40px 20px calc(104px + env(safe-area-inset-bottom));background:linear-gradient(var(--bg),#020803)}
 .mono{position:relative;width:132px;height:132px;margin:0 auto}
 .mono svg{position:absolute;inset:0;width:100%;height:100%}
 .mono .dots{transform-origin:50% 50%}
@@ -428,7 +435,7 @@ footer .fd{font-family:var(--f-cap);font-weight:600;font-size:13px;letter-spacin
         <span class="rule"></span>
         <p class="fam-name">Rogelio Quevedo Rodríguez</p>
         <div class="fam-amp">&amp;</div>
-        <p class="fam-name">Hilda de la Cruz Ruiz</p>
+        <p class="fam-name">Gilda de la Cruz Ruiz</p>
       </div>
     </div>
   </section>
@@ -495,6 +502,11 @@ footer .fd{font-family:var(--f-cap);font-weight:600;font-size:13px;letter-spacin
 </main>
 
 <footer id="foot">
+  <div class="q-photo" id="qPhoto">
+    <span class="q-glow"></span>
+    <svg class="q-arch" viewBox="0 0 260 320" preserveAspectRatio="none"><path class="st2" pathLength="100" d="M6 320V128C6 61 61 6 130 6s124 55 124 122v192"/><path class="st2" pathLength="100" d="M18 320V131C18 70 68 18 130 18s112 52 112 113v189" opacity=".4"/><circle cx="130" cy="6" r="3"/></svg>
+    <img src="img/quince.webp" alt="Daenerys con su vestido de XV años" width="600" height="790" loading="eager" decoding="async">
+  </div>
   <div class="mono" id="mono">
     <svg viewBox="0 0 132 132" fill="none">
       <circle class="m-ring" cx="66" cy="66" r="58" stroke="#D4AF37" stroke-width="1.2" pathLength="100" stroke-dasharray="100" stroke-dashoffset="0"/>
@@ -897,8 +909,13 @@ function scrollAnims(){
      .fromTo('.p-btn',{opacity:0,y:24,scale:.9},{opacity:1,y:0,scale:1,duration:1,ease:'back.out(1.8)',immediateRender:false},'-=.6');
 
   // 6. FOOTER — el anillo se traza y dos mariposas aterrizan en el monograma
-  var tlm=gsap.timeline({scrollTrigger:{trigger:'#foot',start:'top 85%',once:true}});
-  tlm.fromTo('.m-ring',{strokeDashoffset:100},{strokeDashoffset:0,duration:1.6,ease:'power2.inOut',immediateRender:false})
+  var tlm=gsap.timeline({scrollTrigger:{trigger:'#foot',start:'top 78%',once:true}});
+  tlm.fromTo('.q-arch .st2',{strokeDashoffset:100},{strokeDashoffset:0,duration:2,stagger:.25,ease:'power2.inOut',immediateRender:false})
+     .fromTo('.q-arch circle',{opacity:0,scale:0,transformOrigin:'50% 50%'},{opacity:1,scale:1,duration:.6,ease:'back.out(3)',immediateRender:false},'-=1.2')
+     .fromTo('.q-glow',{opacity:0,scale:.6},{opacity:1,scale:1,duration:1.8,ease:'power2.out',immediateRender:false},0)
+     .fromTo('#qPhoto img',{opacity:0,y:50,filter:'blur(10px) brightness(1.4)'},{opacity:1,y:0,filter:'blur(0px) brightness(1)',duration:2,ease:'expo.out',clearProps:'filter',immediateRender:false},.3)
+     .add(function(){var r=document.getElementById('qPhoto').getBoundingClientRect();streamDust(r.left+r.width/2,r.top+r.height*.35,r.width*.4,1);},.6)
+     .fromTo('.m-ring',{strokeDashoffset:100},{strokeDashoffset:0,duration:1.6,ease:'power2.inOut',immediateRender:false})
      .fromTo('.mono b',{opacity:0,scale:.6},{opacity:1,scale:1,duration:1,ease:'power3.out',immediateRender:false},'-=1')
      .fromTo('.mono-perch.a',{opacity:0,x:-90,y:-70},{opacity:1,x:0,y:0,duration:1.6,ease:'power2.out',immediateRender:false},'-=.9')
      .fromTo('.mono-perch.b',{opacity:0,x:90,y:60},{opacity:1,x:0,y:0,duration:1.6,ease:'power2.out',immediateRender:false},'-=1.3')
